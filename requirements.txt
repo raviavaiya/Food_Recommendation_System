@@ -1,0 +1,7 @@
+mysql-connector
+FastAPI
+uvicorn
+python-dotenv
+pydantic
+requests
+beautifulsoup4
