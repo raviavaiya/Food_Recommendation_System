@@ -1,7 +1,7 @@
 # 🍽️ Food Recommender System
 
 The **Food Recommender System** helps users discover food items based on their dietary preferences such as protein, fat, carbohydrates, and food type (Veg/Non-Veg). It uses nutritional data and filters to personalize recommendations.
-
+<img align="right" alt="Coding" width="400" src="https://github.com/raviavaiya/Food_Recommendation_System/blob/main/image.png">
 ## 🚀 Features
 
 - Filter food items based on:
