@@ -3,87 +3,95 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Food Recommendation System</title>
+    <title>Food Products Display</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f5f5f5;
+            background-color: #f4f6f8;
+            margin: 0;
             padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .food-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
 
-        .card {
-            background: white;
-            width: 300px;
-            padding: 20px;
+        .food-card {
+            background: #fff;
             border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.2s;
         }
 
-        .title {
-            font-size: 28px;
-            font-weight: bold;
-            color: #2b7a0b;
+        .food-card:hover {
+            transform: translateY(-5px);
         }
 
-        .type {
-            font-size: 16px;
+        .food-title {
+            font-size: 20px;
+            margin: 0;
+            color: #2c3e50;
+        }
+
+        .food-type {
+            font-size: 14px;
+            color: #7f8c8d;
             margin-bottom: 10px;
-            color: #555;
         }
 
-        .nutrition {
-            display: flex;
-            gap: 20px;
+        .food-nutrients {
             margin: 10px 0;
         }
 
-        .nutrition div {
-            background: #e7f3ea;
-            padding: 8px;
-            border-radius: 8px;
-            text-align: center;
-            flex: 1;
+        .food-nutrients span {
+            display: inline-block;
+            background-color: #ecf0f1;
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 6px;
+            font-size: 14px;
         }
 
-        .description {
-            margin-top: 15px;
-            line-height: 1.6;
-            color: #333;
+        .food-description {
+            font-size: 14px;
+            color: #34495e;
         }
     </style>
 </head>
-<body>
 
-    {% for product in products %}
-    <div class="card">
-        <div class="title">{{ product.p_name }}</div>
-        <div class="type">Type:
-            <strong>
+<body>
+    <h1>Food Products</h1>
+
+    <div class="food-container">
+        {% for product in products %}
+        <div class="food-card">
+            <h2 class="food-title">{{ product.p_name }}</h2>
+            <div class="food-type">
                 {% if product.p_type == 0 %}
                 Vegetarian
                 {% else %}
                 Non-Vegetarian
                 {% endif %}
-            </strong>
+            </div>
+            <div class="food-nutrients">
+                <span>Protein: {{ product.protin }} g</span>
+                <span>Carbs: {{ product.carbos }} g</span>
+                <span>Fat: {{ product.fat }} g</span>
+            </div>
+            <div class="food-description">
+                {{ product.description }}
+            </div>
         </div>
-
-
-        <div class="nutrition">
-            <div><strong>Protein</strong><br>{{ product.protin }} g</div>
-            <div><strong>Fat</strong><br>{{ product.fat }} g</div>
-            <div><strong>Carbohydrates</strong><br>{{ product.carbos }} g</div>
-        </div>
-
-        <div class="description">
-            {{ product.description }}
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-
 </body>
 
 </html>
