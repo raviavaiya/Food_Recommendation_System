@@ -15,6 +15,7 @@
         h1 {
             text-align: center;
             margin-bottom: 30px;
+            color: #2c3e50;
         }
 
         .food-container {
@@ -33,36 +34,117 @@
 
         .food-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+            background-color: #e8f6ff;
         }
+
 
         .food-title {
             font-size: 20px;
             margin: 0;
             color: #2c3e50;
+            margin-bottom: 8px;
         }
 
         .food-type {
             font-size: 14px;
             color: #7f8c8d;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .food-type.vegetarian {
+            color: #27ae60;
+        }
+
+        .food-type.non-vegetarian {
+            color: #e74c3c;
         }
 
         .food-nutrients {
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         .food-nutrients span {
             display: inline-block;
             background-color: #ecf0f1;
-            padding: 5px 10px;
-            margin: 2px;
-            border-radius: 6px;
-            font-size: 14px;
+            padding: 6px 12px;
+            margin: 3px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
         }
 
         .food-description {
             font-size: 14px;
             color: #34495e;
+            line-height: 1.5;
+            margin-top: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            color: #7f8c8d;
+            margin: 50px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Wave Bars Loader */
+        .wave-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .wave-dot {
+            width: 8px;
+            height: 40px;
+            background: linear-gradient(to bottom, #3498db, #2c3e50);
+            border-radius: 4px;
+            animation: wave 1.2s ease-in-out infinite;
+        }
+
+        .wave-dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .wave-dot:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .wave-dot:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .wave-dot:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .wave-dot:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes wave {
+
+            0%,
+            40%,
+            100% {
+                transform: scaleY(0.4);
+                opacity: 0.7;
+            }
+
+            20% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .loading-text {
+            font-size: 16px;
+            font-weight: 500;
+            color: #2c3e50;
         }
     </style>
 </head>
@@ -70,7 +152,18 @@
 <body>
     <h1>Food Products</h1>
 
-    <div class="food-container">
+    <div id="loading" class="loading">
+        <div class="wave-dots">
+            <div class="wave-dot"></div>
+            <div class="wave-dot"></div>
+            <div class="wave-dot"></div>
+            <div class="wave-dot"></div>
+            <div class="wave-dot"></div>
+        </div>
+        <div class="loading-text">Loading delicious products...</div>
+    </div>
+
+    <div class="food-container" id="food-container" style="display: none;">
         {% for product in products %}
         <div class="food-card">
             <h2 class="food-title">{{ product.p_name }}</h2>
@@ -92,6 +185,33 @@
         </div>
         {% endfor %}
     </div>
+
+    <script>
+        function hideLoader() {
+            const loading = document.getElementById('loading');
+            const container = document.getElementById('food-container');
+
+            loading.style.display = 'none';
+            container.style.display = 'grid';
+        }
+
+        // Simulate loading delay and show products
+        // In your actual implementation, call hideLoader() after your data loads
+        setTimeout(hideLoader, 1500);
+
+        /*
+        USAGE INSTRUCTIONS:
+        
+        1. Replace the sample data above with your actual backend data
+        2. Remove the setTimeout and call hideLoader() when your data is ready
+        3. The Jinja2 template will render the products server-side
+        4. Use this structure in your Flask/Django template:
+        
+        In your view/route:
+        context = {'products': your_products_list}
+        return render_template('your_template.html', **context)
+        */
+    </script>
 </body>
 
 </html>
